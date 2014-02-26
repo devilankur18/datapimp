@@ -45,7 +45,9 @@ module Datapimp::Filterable::CacheStatistics
 
     # TODO
     # Make this more configurable
-    self.redis = Datapimp.config.redis_connection(:cache_statistics)
+    def self.redis
+      Datapimp.config.redis_connection(:cache_statistics)
+    end
 
     def initialize(filter_context_class)
       @context_class = filter_context_class.to_s
