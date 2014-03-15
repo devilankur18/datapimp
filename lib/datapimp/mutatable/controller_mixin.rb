@@ -113,7 +113,11 @@ module Datapimp
         end
 
         def permitted_params
-          params.require(model_name).permit!
+          if params[model_name.to_sym].present?
+            return params.require(model_name).permit!
+          else
+            []
+          end
         end
 
         def outcome
