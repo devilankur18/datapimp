@@ -163,6 +163,10 @@ module Datapimp
       end
 
       def cache_key
+        @cache_key ||= generate_cache_key
+      end
+
+      def generate_cache_key
         base  = scope.scope_attributes.inject([scope.klass.to_s]) {|m,k| m << k.map(&:to_s).map(&:strip).join(':') }
 
         parts = params.except(:format,:controller,:action)
@@ -181,6 +185,7 @@ module Datapimp
       end
 
       def execute_with_caching
+
         result = Rails.cache.read(cache_key)
 
         if result
@@ -188,6 +193,8 @@ module Datapimp
           record_cache_hit(cache_key)
           return result
         end
+
+        debugger
 
         @results = wrap_results
 
