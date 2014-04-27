@@ -194,8 +194,6 @@ module Datapimp
           return result
         end
 
-        debugger
-
         @results = wrap_results
 
         Rails.cache.write(cache_key, @results)
